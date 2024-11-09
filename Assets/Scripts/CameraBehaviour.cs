@@ -11,10 +11,10 @@ public class CameraBehaviour : MonoBehaviour
     private const int zPos = -10;
 
     // Boundaries
-    [SerializeField] float minX = -3.5f;
-    [SerializeField] float maxX = 3.16f;
-    [SerializeField] float minY = -1f;
-    [SerializeField] float maxY = 2f;
+    [SerializeField] float minX;
+    [SerializeField] float maxX;
+    [SerializeField] float minY;
+    [SerializeField] float maxY;
 
     void FixedUpdate()
     {
