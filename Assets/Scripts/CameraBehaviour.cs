@@ -30,11 +30,20 @@ public class CameraBehaviour : MonoBehaviour
             transform.position = smoothedPosition;
 
             // Clamp the camera position to stay within the defined boundaries
-            float clampedX = Mathf.Clamp(smoothedPosition.x, minX, maxX);
-            float clampedY = Mathf.Clamp(smoothedPosition.y, minY, maxY);
+            //float clampedX = Mathf.Clamp(smoothedPosition.x, minX, maxX);
+            //float clampedY = Mathf.Clamp(smoothedPosition.y, minY, maxY);
 
             // Set the camera position with the clamped values
-            transform.position = new Vector3(clampedX, clampedY, smoothedPosition.z);
+            //transform.position = new Vector3(clampedX, clampedY, smoothedPosition.z);
+            transform.position = smoothedPosition;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<EdgeCollider2D>())
+        {
+            
         }
     }
 }
