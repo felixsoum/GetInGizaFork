@@ -21,10 +21,17 @@ public class ObeliskBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(isMoving && Input.GetKeyDown(KeyCode.E))
+        
+        if (isMoving && Input.GetKeyDown(KeyCode.E))
         {
             var xPos = Mathf.RoundToInt(player.position.x);
             obelisk.MoveObelisk(obNum, xPos);
+            isMoving = false;
+            CollectableBehaviour.DisableAdvice();
+            isAdviceVisible = false;
+        }
+        else if (isMoving && Input.GetKeyDown(KeyCode.Tab))
+        {
             isMoving = false;
             CollectableBehaviour.DisableAdvice();
             isAdviceVisible = false;
