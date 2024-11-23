@@ -1,14 +1,16 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ObselikPuzzle : MonoBehaviour
+public class ObeliskPuzzle : MonoBehaviour
 {
     [SerializeField] private Transform[] obelisks; // Array of two obelisks
     [SerializeField] private Transform[] targetPositions; // Correct positions for shadows
     [SerializeField] private float alignmentThreshold = 0.5f; // How close the obelisk must be to the target
-    [SerializeField] private GameObject door; // Door to unlock when puzzle is solved
 
+    public UnityEvent obselikSolved;
     private bool isSolved = false;
 
     void Update()
@@ -18,7 +20,7 @@ public class ObselikPuzzle : MonoBehaviour
             if (CheckAlignment())
             {
                 isSolved = true;
-                UnlockDoor();
+                obselikSolved?.Invoke();
             }
         }
     }
@@ -28,7 +30,7 @@ public class ObselikPuzzle : MonoBehaviour
     {
         for (int i = 0; i < obelisks.Length; i++)
         {
-            float distance = Vector2.Distance(obelisks[i].position, targetPositions[i].position);
+            float distance = Mathf.Abs(obelisks[i].position.x - targetPositions[i].position.x);
             if (distance > alignmentThreshold)
             {
                 return false; // One obelisk is not aligned
@@ -37,22 +39,13 @@ public class ObselikPuzzle : MonoBehaviour
         return true; // All obelisks are aligned
     }
 
-    // Unlock the door when the puzzle is solved
-    private void UnlockDoor()
-    {
-        Debug.Log("Puzzle solved! Unlocking door...");
-        if (door != null)
-        {
-            door.SetActive(false); // Deactivate the door
-        }
-    }
-
     // Move an obelisk horizontally (called by player input)
-    public void MoveObelisk(int obeliskIndex, float moveAmount)
+    public void MoveObelisk(int obeliskIndex, float newPosX)
     {
         if (obeliskIndex >= 0 && obeliskIndex < obelisks.Length)
         {
-            obelisks[obeliskIndex].Translate(moveAmount, 0, 0); // Move the obelisk on the X-axis
+            var vector = obelisks[obeliskIndex].position;
+            obelisks[obeliskIndex].position = new Vector3(newPosX, vector.y, vector.z);
         }
     }
 }

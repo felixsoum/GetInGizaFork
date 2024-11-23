@@ -8,7 +8,7 @@ public class CollectableBehaviour : MonoBehaviour
     [SerializeField] private bool disableOnCollect;
     [TextArea(3, 10)]
     [SerializeField] private string text = "Error - No text was added to this object";
-    [SerializeField] private string adviceText = "";
+    private string adviceText = "Press E to interact";
     public UnityEvent<string> onCollect;
 
     public bool isAdviceVisible;
@@ -22,6 +22,7 @@ public class CollectableBehaviour : MonoBehaviour
         {
             DisableAdvice();
             onCollect?.Invoke(text);
+            isAdviceVisible = false;
             if (disableOnCollect) gameObject.SetActive(false);
         }
     }
@@ -30,7 +31,8 @@ public class CollectableBehaviour : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            EnableAdvice();
+            EnableAdvice(adviceText);
+            isAdviceVisible = true;
         }
     }
 
@@ -39,19 +41,23 @@ public class CollectableBehaviour : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>())
         {
             DisableAdvice();
+            isAdviceVisible = false;
         }
     }
 
-    private void DisableAdvice()
+    public static void DisableAdvice()
     {
         onViewDisable?.Invoke();
-        isAdviceVisible = false;
     }
 
-    private void EnableAdvice()
+    public static void EnableAdvice(string adText)
     {
-        onViewAdvice?.Invoke(adviceText);
-        isAdviceVisible = true;
+        onViewAdvice?.Invoke(adText);
+    }
+
+    public void MakeVisible()
+    {
+        gameObject.SetActive(true);
     }
 }
 
