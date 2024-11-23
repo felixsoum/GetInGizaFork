@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class CollectableBehaviour : MonoBehaviour
 {
     [SerializeField] private bool disableOnCollect;
     [TextArea(3, 10)]
     [SerializeField] private string text = "Error - No text was added to this object";
+    [SerializeField] private string adviceText = "";
     public UnityEvent<string> onCollect;
 
-    private bool isAdviceVisible;
+    public bool isAdviceVisible;
 
     public static event Action<string> onViewAdvice;
     public static event Action onViewDisable;
@@ -30,8 +30,7 @@ public class CollectableBehaviour : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            onViewAdvice?.Invoke("");
-            isAdviceVisible = true;
+            EnableAdvice();
         }
     }
 
@@ -48,4 +47,11 @@ public class CollectableBehaviour : MonoBehaviour
         onViewDisable?.Invoke();
         isAdviceVisible = false;
     }
+
+    private void EnableAdvice()
+    {
+        onViewAdvice?.Invoke(adviceText);
+        isAdviceVisible = true;
+    }
 }
+
