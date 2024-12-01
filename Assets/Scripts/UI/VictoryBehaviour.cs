@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VictoryBehaviour : MonoBehaviour
 {
@@ -14,5 +15,21 @@ public class VictoryBehaviour : MonoBehaviour
     void Update()
     {
         
+    }
+    public void ActivatePanel()
+    {
+        Time.timeScale = 0; // Freeze time
+        gameObject.SetActive(true);
+    }
+    public void Retry()
+    {
+        //Restarts current level
+        Time.timeScale = 1; // Freeze time
+        gameObject.SetActive(false);
+        SceneManager.LoadScene(0);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

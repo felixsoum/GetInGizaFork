@@ -17,23 +17,17 @@ public class AdviceTextBehaviour : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnEnable()
+    public void ViewAdvice(string text)
     {
-        CollectableBehaviour.onViewAdvice += delegate (string text)
+        if (text != "")
         {
-            if (text != "")
-            {
-                TMPText.text = text;
-            }
-            gameObject.SetActive(true);
-        };
+            TMPText.text = text;
+        }
+        gameObject.SetActive(true);
     }
 
-    void OnDisable()
+    public void DisableAdvice()
     {
-        CollectableBehaviour.onViewDisable += delegate ()
-        {
-            gameObject.SetActive(false);
-        };
-    }
+        gameObject.SetActive(false);
+    } 
 }

@@ -35,7 +35,7 @@ public class HieroglyphicPuzzle : MonoBehaviour
         ResetInput("");
         gameObject.SetActive(false);
         isUIOpened = false;
-        pause.ResumeGame();
+        pause.ResumeGameOnUI();
     }
 
     void Update()

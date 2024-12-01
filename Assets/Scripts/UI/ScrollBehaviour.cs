@@ -76,7 +76,7 @@ public class ScrollBehaviour : MonoBehaviour
     {
         animator.SetTrigger("ScrollClose");
         mainText.gameObject.SetActive(false);
-        pause.ResumeGame();
+        pause.ResumeGameOnUI();
         isUIShown = false;
     }
 }

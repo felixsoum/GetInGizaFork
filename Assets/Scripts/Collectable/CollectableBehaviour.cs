@@ -8,13 +8,19 @@ public class CollectableBehaviour : MonoBehaviour
     [SerializeField] private bool disableOnCollect;
     [TextArea(3, 10)]
     [SerializeField] private string text = "Error - No text was added to this object";
+    [SerializeField] private AdviceTextBehaviour adviceTextObject;
     private string adviceText = "Press E to interact";
     public UnityEvent<string> onCollect;
 
     public bool isAdviceVisible;
 
-    public static event Action<string> onViewAdvice;
-    public static event Action onViewDisable;
+    void Awake()
+    {
+        if (adviceTextObject is null)
+        {
+            adviceTextObject = GameObject.FindGameObjectWithTag("AdviceText").GetComponent<AdviceTextBehaviour>();
+        }
+    }
 
     void Update()
     {
@@ -45,14 +51,14 @@ public class CollectableBehaviour : MonoBehaviour
         }
     }
 
-    public static void DisableAdvice()
+    public void DisableAdvice()
     {
-        onViewDisable?.Invoke();
+        adviceTextObject.DisableAdvice();
     }
 
-    public static void EnableAdvice(string adText)
+    public void EnableAdvice(string adText)
     {
-        onViewAdvice?.Invoke(adText);
+        adviceTextObject.ViewAdvice(adText);
     }
 
     public void MakeVisible()

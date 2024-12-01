@@ -5,11 +5,14 @@ using UnityEngine;
 public class PauseBehaviour : MonoBehaviour
 {
     private bool isPaused = false;
+    private bool isShowingUI;
+
+    [SerializeField] private GameObject pauseUI;
 
     void Update()
     {
         // Toggle pause when the user presses the Escape key
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!isShowingUI && Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
@@ -20,10 +23,12 @@ public class PauseBehaviour : MonoBehaviour
         if (isPaused)
         {
             ResumeGame();
+            pauseUI.SetActive(false);
         }
         else
         {
             PauseGame();
+            pauseUI.SetActive(true);
         }
     }
 
@@ -31,14 +36,12 @@ public class PauseBehaviour : MonoBehaviour
     {
         Time.timeScale = 0; // Freeze time
         isPaused = true;
-        // pauseMenu.SetActive(true);
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1; // Resume time
         isPaused = false;
-        // pauseMenu.SetActive(false);
     }
 
     public void PauseGameOnUI()
@@ -46,6 +49,15 @@ public class PauseBehaviour : MonoBehaviour
         if (!isPaused)
         {
             PauseGame();
+            isShowingUI = true;
+        }
+    }
+    public void ResumeGameOnUI()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+            isShowingUI = false;
         }
     }
 }

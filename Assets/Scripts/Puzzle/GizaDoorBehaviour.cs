@@ -10,13 +10,19 @@ public class GizaDoorBehaviour : MonoBehaviour
     [SerializeField] private string text = "Error - No text was added to this object";
     [SerializeField] private PlayerController player;
     private string adviceText = "Press E to interact";
+    private AdviceTextBehaviour adviceTextObject;
     public UnityEvent<string> onCollect;
     public UnityEvent onVictory;
 
     public bool isAdviceVisible;
 
-    public static event Action<string> onViewAdvice;
-    public static event Action onViewDisable;
+    void Start()
+    {
+        if (adviceTextObject == null)
+        {
+            adviceTextObject = GameObject.FindGameObjectWithTag("AdviceText").GetComponent<AdviceTextBehaviour>();
+        }
+    }
 
     void Update()
     {
@@ -36,8 +42,7 @@ public class GizaDoorBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var isPlayer = collision.gameObject.GetComponent<PlayerController>();
-        if (isPlayer)
+        if (collision.gameObject.GetComponent<PlayerController>())
         {
             EnableAdvice(adviceText);
             isAdviceVisible = true;
@@ -52,14 +57,15 @@ public class GizaDoorBehaviour : MonoBehaviour
             isAdviceVisible = false;
         }
     }
-    public static void DisableAdvice()
+
+    public void DisableAdvice()
     {
-        onViewDisable?.Invoke();
+        adviceTextObject.DisableAdvice();
     }
 
-    public static void EnableAdvice(string adText)
+    public void EnableAdvice(string adText = "")
     {
-        onViewAdvice?.Invoke(adText);
+        adviceTextObject.ViewAdvice(adText);
     }
 
     public void MakeVisible()

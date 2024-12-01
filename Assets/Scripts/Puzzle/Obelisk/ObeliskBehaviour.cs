@@ -8,14 +8,19 @@ public class ObeliskBehaviour : MonoBehaviour
     [SerializeField] private ObeliskPuzzle obelisk;
     private bool isMoving;
     private bool isAdviceVisible;
+    private AdviceTextBehaviour adviceTextObject;
 
     private Transform player;
 
-    void Start()
+    void Awake()
     {
         if(obelisk is null)
         {
             obelisk = GetComponentInParent<ObeliskShadow>().gameObject.GetComponentInParent<ObeliskPuzzle>();
+        }
+        if (adviceTextObject == null)
+        {
+            adviceTextObject = GameObject.FindGameObjectWithTag("AdviceText").GetComponent<AdviceTextBehaviour>();
         }
     }
 
@@ -27,18 +32,18 @@ public class ObeliskBehaviour : MonoBehaviour
             var xPos = Mathf.RoundToInt(player.position.x);
             obelisk.MoveObelisk(obNum, xPos);
             isMoving = false;
-            CollectableBehaviour.DisableAdvice();
+            adviceTextObject.DisableAdvice();
             isAdviceVisible = false;
         }
         else if (isMoving && Input.GetKeyDown(KeyCode.Tab))
         {
             isMoving = false;
-            CollectableBehaviour.DisableAdvice();
+            adviceTextObject.DisableAdvice();
             isAdviceVisible = false;
         }
         if (isAdviceVisible && Input.GetKeyDown(KeyCode.E))
         {
-            CollectableBehaviour.EnableAdvice("Press E to put Obeslik in your position, Press Tab to stop");
+            adviceTextObject.ViewAdvice("Press E to put Obeslik in your position, Press Tab to stop");
             isMoving = true;
         }
     }
@@ -53,7 +58,7 @@ public class ObeliskBehaviour : MonoBehaviour
             }
             if (!isAdviceVisible)
             {
-                CollectableBehaviour.EnableAdvice("Press E to move Obelisk");
+                adviceTextObject.ViewAdvice("Press E to move Obelisk");
                 isAdviceVisible = true;
 
             }
@@ -66,41 +71,9 @@ public class ObeliskBehaviour : MonoBehaviour
         {
             if (isMoving == false)
             {
-                CollectableBehaviour.DisableAdvice();
+                adviceTextObject.DisableAdvice();
                 isAdviceVisible = false;
             }
         }
     }
-
-    //void OnTriggerStay2D(Collider2D other)
-    //{
-    //    if (!isMoving)
-    //    {
-    //        return;
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.Tab))
-    //    {
-    //        isMoving = false;
-    //    }
-    //    var isPlayer = other.gameObject.GetComponent<PlayerController>();
-    //    if (isPlayer)
-    //    {
-    //        var playerPos = other.transform.position.x;
-    //        var distanceToPlayer = Mathf.Abs(playerPos - transform.position.x);
-    //        float maxDistance = 0.01f;
-    //        Debug.Log(distanceToPlayer);
-    //        if(distanceToPlayer <= maxDistance)
-    //        {
-    //            if (Input.GetKey(KeyCode.LeftArrow))
-    //            {
-    //                obelisk.MoveObelisk(obNum, -1f); // Move Obelisk 1 left
-    //            }
-    //            else if (Input.GetKey(KeyCode.RightArrow))
-    //            {
-    //                obelisk.MoveObelisk(obNum, 1f); // Move Obelisk 1 left
-    //            }
-    //        }
-    //    }
-    //}
 }
