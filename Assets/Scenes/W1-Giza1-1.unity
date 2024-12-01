@@ -4628,8 +4628,8 @@ PrefabInstance:
         to the Pyramid of Giza
 
 
-        Be cautious before you enter, there could
-        potentially be booby traps ahead that could stint your progress'
+        You can no go to the enterance and make
+        your way inside'
       objectReference: {fileID: 0}
     - target: {fileID: 3998290774168571630, guid: 42210f622b9894e92bb17f6797ec00f0, type: 3}
       propertyPath: disableOnCollect
@@ -6946,7 +6946,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 663.93, y: 412.35}
+  m_AnchoredPosition: {x: -0.020519, y: 412.35}
   m_SizeDelta: {x: 805.4, y: 375.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1823912468
