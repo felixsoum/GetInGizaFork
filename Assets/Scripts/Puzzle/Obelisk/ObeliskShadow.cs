@@ -7,6 +7,7 @@ public class ObeliskShadow : MonoBehaviour
     [SerializeField] private LineRenderer shadowRenderer; // LineRenderer component
     [SerializeField] private Transform lightSource; // Position of the light source
     [SerializeField] private float shadowLength = 25f; // Length of the shadow
+    [SerializeField] private float shadowZAxis = 0f;
     [SerializeField] private Transform basePosition;
 
     private void Start()
@@ -31,7 +32,7 @@ public class ObeliskShadow : MonoBehaviour
         Vector3 direction = (transform.position - lightSource.position).normalized;
 
         // Set the positions of the LineRenderer
-        shadowRenderer.SetPosition(0, new Vector3(basePosition.position.x, basePosition.position.y, 15)); // Start at the obelisk's base
+        shadowRenderer.SetPosition(0, new Vector3(basePosition.position.x, basePosition.position.y, shadowZAxis)); // Start at the obelisk's base
         shadowRenderer.SetPosition(1, basePosition.position + direction * shadowLength); // Extend shadow
     }
 }

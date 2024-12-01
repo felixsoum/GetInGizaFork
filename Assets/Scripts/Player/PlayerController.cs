@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private Transform tr;
     private float timeLeftGround;
 
+    public bool hasKey = false;
+
     // Awake is called before the game starts
     void Awake()
     {
@@ -197,5 +199,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = gravityUp;
         }
+    }
+
+    public void GotKey()
+    {
+        hasKey = true;
     }
 }
