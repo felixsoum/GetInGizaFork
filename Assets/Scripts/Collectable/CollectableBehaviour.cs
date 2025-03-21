@@ -58,7 +58,7 @@ public class CollectableBehaviour : MonoBehaviour
 
     public void EnableAdvice(string adText)
     {
-        adviceTextObject.ViewAdvice(adText);
+        adviceTextObject.ViewAdvice("interact_prompt");
     }
 
     public void MakeVisible()

@@ -13,15 +13,15 @@ public class AdviceTextBehaviour : MonoBehaviour
         {
             TMPText = GetComponent<TextMeshProUGUI>();
         }
-        TMPText.text = "Press E to interact";
+        //TMPText.text = "Press E to interact";
         gameObject.SetActive(false);
     }
 
-    public void ViewAdvice(string text)
+    public void ViewAdvice(string key)
     {
-        if (text != "")
+        if (key != "")
         {
-            TMPText.text = text;
+            TMPText.text = Localization.GetString(key);
         }
         gameObject.SetActive(true);
     }
